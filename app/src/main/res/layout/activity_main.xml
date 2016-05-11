@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8sp"
+    android:paddingLeft="8sp"
+    android:paddingRight="8sp"
+    android:paddingTop="8sp"
+    tools:context=".Activity.main">
+
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="设备信息"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="跳转到隐藏页"
+        android:id="@+id/otheractButton"
+        android:layout_below="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginTop="4sp"
+        android:layout_marginEnd="4sp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="http请求测试"
+        android:id="@+id/httpButton"
+        android:layout_below="@+id/otheractButton"
+        android:layout_alignStart="@+id/otheractButton"
+        android:layout_marginTop="4sp"
+        android:layout_marginEnd="4sp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="webview测试"
+        android:id="@+id/webviewButton"
+        android:layout_below="@+id/httpButton"
+        android:layout_alignStart="@+id/httpButton"
+        android:layout_marginTop="4sp"
+        android:layout_marginEnd="4sp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="oom测试"
+        android:id="@+id/oomButton"
+        android:layout_below="@+id/webviewButton"
+        android:layout_alignStart="@+id/webviewButton"
+        android:layout_marginTop="4sp"
+        android:layout_marginEnd="4sp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="WiFi_ADB开关"
+        android:id="@+id/sockectButton"
+        android:layout_below="@+id/oomButton"
+        android:layout_alignStart="@+id/oomButton"
+        android:layout_marginTop="4sp"
+        android:layout_marginEnd="4sp"/>
+
+</RelativeLayout>
