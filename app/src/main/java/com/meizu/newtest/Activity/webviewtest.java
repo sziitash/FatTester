@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,17 +22,19 @@ public class webviewtest extends Activity
 {
 
 	private WebView webview;
+
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.webviewtest);
-		webview = (WebView) findViewById(R.id.webview);
-		WebSettings webSettings = webview.getSettings();
+        webview = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);  
         webSettings.setAllowFileAccess(true);
-        webSettings.setBuiltInZoomControls(true);
+//        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
         webview.loadUrl("https://testerhome.com");
         webview.setWebViewClient(new webViewClient ());  
 		
@@ -62,6 +65,18 @@ public class webviewtest extends Activity
             view.loadUrl(url);  
             return true;  
         }  
-    }  
+    }
 
+    @Override
+    public void finish() {
+        ViewGroup view = (ViewGroup) getWindow().getDecorView();
+        view.removeAllViews();
+        super.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        webview.destroy();
+    }
 }
