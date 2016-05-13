@@ -36,6 +36,7 @@
         <activity android:name=".Activity.wifiAdb" />
         <activity android:name=".Activity.OtherActivity" />
         <activity android:name=".Activity.webviewtest" />
+        <activity android:name=".Activity.ApkDexTest"/>
 
         <receiver android:name=".broadcast.Mybroadcast">
             <intent-filter>

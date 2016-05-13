@@ -26,20 +26,24 @@ public class main extends AppCompatActivity {
     Button webviewButton;
     Button oomButton;
     Button sockectButton;
+    Button apkdextestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setLogo(R.mipmap.good);
         deviceinfo = (Button) findViewById(R.id.button);
-        otheractButton = (Button)findViewById(R.id.otheractButton);
-        httprequestsButton = (Button)findViewById(R.id.httpButton);
-        webviewButton = (Button)findViewById(R.id.webviewButton);
-        oomButton = (Button)findViewById(R.id.oomButton);
+        otheractButton = (Button) findViewById(R.id.otheractButton);
+        httprequestsButton = (Button) findViewById(R.id.httpButton);
+        webviewButton = (Button) findViewById(R.id.webviewButton);
+        oomButton = (Button) findViewById(R.id.oomButton);
 //		aidlButton = (Button)findViewById(R.id.aidlButton);
-        sockectButton = (Button)findViewById(R.id.sockectButton);
+        sockectButton = (Button) findViewById(R.id.sockectButton);
 //		uploadButton = (Button)findViewById(R.id.uploadButton);
 //		dexloadButton = (Button)findViewById(R.id.dexloadButton);
+        apkdextestButton = (Button) findViewById(R.id.apkdextestButton);
 
         deviceinfo.setOnClickListener(deviceinfoC);
         otheractButton.setOnClickListener(otheract);
@@ -48,33 +52,34 @@ public class main extends AppCompatActivity {
         oomButton.setOnClickListener(ommtest);
 //		aidlButton.setOnClickListener(aidltest);
         sockectButton.setOnClickListener(sockecttest);
+        apkdextestButton.setOnClickListener(apkdextest);
 //		uploadButton.setOnClickListener(uploadtest);
 //		dexloadButton.setOnClickListener(dexloadtest);
     }
 
-    public Button.OnClickListener deviceinfoC = new Button.OnClickListener(){
+    public Button.OnClickListener deviceinfoC = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent it = new Intent(main.this,MainActivity.class);
+            Intent it = new Intent(main.this, MainActivity.class);
             startActivity(it);
         }
     };
 
-    public Button.OnClickListener otheract = new Button.OnClickListener(){
+    public Button.OnClickListener otheract = new Button.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent i = new Intent();
             ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.TestingSettings");
             i.setComponent(cn);
             boolean a = timesleep();
-            if(a==true){
+            if (a == true) {
                 i.setAction("android.intent.action.MAIN");
                 startActivity(i);
             }
         }
     };
 
-    public Button.OnClickListener httpButton = new Button.OnClickListener(){
+    public Button.OnClickListener httpButton = new Button.OnClickListener() {
         public void onClick(View view) {
             OkHttpClient client = new OkHttpClient();
             //根据请求URL创建一个Request对象
@@ -86,14 +91,14 @@ public class main extends AppCompatActivity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    Toast.makeText(getApplicationContext(),"请求失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
                     //请求成功，此处对请求结果进行处理
                     String result = response.body().string();
-                    Log.i("benlee",result);
+                    Log.i("benlee", result);
                     Intent intent = new Intent(main.this, httptest.class);
                     //用Bundle携带数据
                     Bundle bundle = new Bundle();
@@ -132,16 +137,16 @@ public class main extends AppCompatActivity {
 //	    	}
     };
 
-    public Button.OnClickListener webviewtest = new Button.OnClickListener(){
-        public void onClick(View view){
-            Intent intent = new Intent(main.this,webviewtest.class);
+    public Button.OnClickListener webviewtest = new Button.OnClickListener() {
+        public void onClick(View view) {
+            Intent intent = new Intent(main.this, webviewtest.class);
             startActivity(intent);
         }
     };
 
-    public Button.OnClickListener ommtest = new Button.OnClickListener(){
-        public void onClick(View view){
-            Intent intent = new Intent(main.this,OtherActivity.class);
+    public Button.OnClickListener ommtest = new Button.OnClickListener() {
+        public void onClick(View view) {
+            Intent intent = new Intent(main.this, OtherActivity.class);
             startActivity(intent);
             ActivityManager.instance().registActivity(main.this);
         }
@@ -154,9 +159,16 @@ public class main extends AppCompatActivity {
 //		}
 //	};
 
-    public Button.OnClickListener sockecttest = new Button.OnClickListener(){
-        public void onClick(View view){
-            Intent intent = new Intent(main.this,wifiAdb.class);
+    public Button.OnClickListener sockecttest = new Button.OnClickListener() {
+        public void onClick(View view) {
+            Intent intent = new Intent(main.this, wifiAdb.class);
+            startActivity(intent);
+        }
+    };
+
+    public Button.OnClickListener apkdextest = new Button.OnClickListener() {
+        public void onClick(View view) {
+            Intent intent = new Intent(main.this, ApkDexTest.class);
             startActivity(intent);
         }
     };
@@ -177,7 +189,7 @@ public class main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("hello","main_onDestroy");
+        Log.i("hello", "main_onDestroy");
         ActivityManager.instance().registActivity(main.this);
     }
 

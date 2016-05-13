@@ -9,8 +9,6 @@
     android:paddingTop="8sp"
     tools:context=".Activity.main">
 
-
-
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -66,6 +64,16 @@
         android:id="@+id/sockectButton"
         android:layout_below="@+id/oomButton"
         android:layout_alignStart="@+id/oomButton"
+        android:layout_marginTop="4sp"
+        android:layout_marginEnd="4sp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="动态加载测试"
+        android:id="@+id/apkdextestButton"
+        android:layout_below="@+id/sockectButton"
+        android:layout_alignStart="@+id/sockectButton"
         android:layout_marginTop="4sp"
         android:layout_marginEnd="4sp"/>
 

@@ -10,6 +10,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -148,7 +149,7 @@ public class MainActivity extends ListActivity {
 			item.put("text", mListStr[i]);
 			mData.add(item);
 		}
-
+		Log.i("mdata", String.valueOf(mData));
 		SimpleAdapter adapter = new SimpleAdapter(this,mData, R.layout.deviceinfo,
 				new String[]{"title","text"},new int[]{R.id.title,R.id.text});
 		setListAdapter(adapter);

@@ -2,8 +2,8 @@ package com.meizu.newtest.Activity;
 
 //import org.json.JSONArray;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class httptest extends Activity  {
+public class httptest extends AppCompatActivity {
 	/*
 	private TextView numtv;
 	private TextView goaltv;
