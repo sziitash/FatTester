@@ -4,21 +4,21 @@ package com.meizu.newtest.Activity;
  * Created by libinhui on 2016/2/15.
  */
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.meizu.newtest.Util.utils;
 import com.meizu.newtest.R;
+import com.meizu.newtest.Util.utils;
 
 import java.net.ServerSocket;
 
 
-public class wifiAdb extends Activity {
+public class wifiAdb extends AppCompatActivity {
     private TextView tv;
 
     // Public variables

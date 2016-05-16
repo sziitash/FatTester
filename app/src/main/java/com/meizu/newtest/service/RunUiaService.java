@@ -61,8 +61,8 @@ public class RunUiaService extends Service {
         String testPkg = intent.getStringExtra("testpkg");
         String testClass = intent.getStringExtra("testclass");
         String testCase = intent.getStringExtra("testcase");
-        this.myThread = new MyThread(testPkg,testClass,testCase);
-        this.myThread.start();
+        myThread = new MyThread(testPkg,testClass,testCase);
+        myThread.start();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -103,4 +103,30 @@ public class RunUiaService extends Service {
 //            stopForeground(true);
         }
     }
+
+    //    class runServiceRunnable implements Runnable{
+//        private String testpkg;
+//        private String testclass; //定义需要传值进来的参数
+//        private String testcase;
+//
+//        public void setTestCase(String tpkg, String tclass, String tcase){//,boolean gorun){
+//            this.testpkg = tpkg;
+//            this.testclass = tclass;
+//            this.testcase = tcase;
+//        }
+//
+//        @Override
+//        public void run() {
+//            if(testcase.equals("0")){
+//                String commandstr = "am instrument -w -r -e debug false -e class "+testpkg+"."+testclass+" "+testpkg+".test/android.support.test.runner.AndroidJUnitRunner";
+//                Log.i("benlee",commandstr);
+//                utils.execCommand(commandstr,true);
+//            }
+//            else {
+//                String commandstr = "am instrument -w -r -e debug false -e class "+testpkg+"."+testclass+"#"+testcase+" "+testpkg+".test/android.support.test.runner.AndroidJUnitRunner";
+//                Log.i("benlee",commandstr);
+//                utils.execCommand(commandstr,true);
+//            }
+//        }
+//    }
 }

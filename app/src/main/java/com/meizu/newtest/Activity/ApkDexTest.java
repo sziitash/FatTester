@@ -31,10 +31,11 @@ public class ApkDexTest extends AppCompatActivity{
     private static final String classPath = "com.meizu.nltemtbf.ApplicationTest";
     private static String apkName = null;
     private int checkNum;
-    private TextView tv_show;
+    private TextView tv_show, classnametv;
     private Button bt_selectall, bt_cancel, bt_deselectall, bt_runtest, bt_stoptest;
     private ListView lv;
     private MyAdapter madapter;
+    private String classname = null;
     ArrayList<String> tcs;
 
     @Override
@@ -48,6 +49,7 @@ public class ApkDexTest extends AppCompatActivity{
         bt_runtest = (Button) findViewById(R.id.bt_runtest);
         bt_stoptest = (Button) findViewById(R.id.bt_stoptest);
         tv_show = (TextView) findViewById(R.id.tv);
+        classnametv = (TextView) findViewById(R.id.className);
 
         try {
             apkName = getPackageManager().getApplicationInfo(packagePath, 0).sourceDir;
@@ -159,6 +161,13 @@ public class ApkDexTest extends AppCompatActivity{
             }
         });
 
+
+        try {
+            classname = getApkClass();
+            classnametv.setText("测试类名："+classname);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -166,18 +175,18 @@ public class ApkDexTest extends AppCompatActivity{
         super.onDestroy();
     }
 
-    public void getApkClass(TextView classtv) throws IOException {
+    public String getApkClass() throws IOException {
         //获取测试的类名
         DexFile dx = DexFile.loadDex(apkName, File.createTempFile("opt", "dex", getCacheDir()).getPath(), 0);
         for (Enumeration<String> classNames = dx.entries(); classNames.hasMoreElements(); ) {
             String cname = classNames.nextElement();
             if (cname.contains("ApplicationTest")) {
                 if (!cname.contains("$")) {
-                    classtv.setText("测试类名：" + cname);
-                    break;
+                    return cname;
                 }
             }
         }
+        return null;
     }
 
     public ArrayList<String> getTestCase() throws ClassNotFoundException {
