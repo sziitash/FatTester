@@ -37,6 +37,7 @@
         <activity android:name=".Activity.OtherActivity" />
         <activity android:name=".Activity.webviewtest" />
         <activity android:name=".Activity.ApkDexTest"/>
+        <activity android:name=".Activity.ApkDexTestonStart" />
 
         <receiver android:name=".broadcast.Mybroadcast">
             <intent-filter>

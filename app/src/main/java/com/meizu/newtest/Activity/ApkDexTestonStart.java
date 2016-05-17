@@ -26,7 +26,7 @@ import dalvik.system.PathClassLoader;
 /**
  * Created by libinhui on 2016/5/12.
  */
-public class ApkDexTest extends AppCompatActivity{
+public class ApkDexTestonStart extends AppCompatActivity{
     private static final String packagePath = "com.meizu.nltemtbf.test";
     private static final String classPath = "com.meizu.nltemtbf.ApplicationTest";
     private static String apkName = null;
@@ -61,7 +61,11 @@ public class ApkDexTest extends AppCompatActivity{
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();}
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         // 全选按钮的回调接口
         bt_selectall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,13 +142,13 @@ public class ApkDexTest extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
-                i.setClass(ApkDexTest.this, RunUiaService.class);
-                ApkDexTest.this.stopService(i);
+                i.setClass(ApkDexTestonStart.this, RunUiaService.class);
+                ApkDexTestonStart.this.stopService(i);
                 i.putExtra("testpkg", "com.meizu.nltemtbf");
                 i.putExtra("testclass","ApplicationTest");
                 i.putExtra("testcase", "test007Email");
 //                ApkDexTest.this.stopService(i);
-                ApkDexTest.this.startService(i);
+                ApkDexTestonStart.this.startService(i);
             }
         });
 
@@ -152,8 +156,8 @@ public class ApkDexTest extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
-                i.setClass(ApkDexTest.this, RunUiaService.class);
-                ApkDexTest.this.stopService(i);
+                i.setClass(ApkDexTestonStart.this, RunUiaService.class);
+                ApkDexTestonStart.this.stopService(i);
             }
         });
 

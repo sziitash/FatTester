@@ -27,6 +27,7 @@ public class main extends AppCompatActivity {
     Button oomButton;
     Button sockectButton;
     Button apkdextestButton;
+    Button apkdextestonstartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class main extends AppCompatActivity {
 //		uploadButton = (Button)findViewById(R.id.uploadButton);
 //		dexloadButton = (Button)findViewById(R.id.dexloadButton);
         apkdextestButton = (Button) findViewById(R.id.apkdextestButton);
+        apkdextestonstartButton = (Button) findViewById(R.id.apkdextestonstartButton);
 
         deviceinfo.setOnClickListener(deviceinfoC);
         otheractButton.setOnClickListener(otheract);
@@ -53,6 +55,7 @@ public class main extends AppCompatActivity {
 //		aidlButton.setOnClickListener(aidltest);
         sockectButton.setOnClickListener(sockecttest);
         apkdextestButton.setOnClickListener(apkdextest);
+        apkdextestonstartButton.setOnClickListener(apkdextestonstart);
 //		uploadButton.setOnClickListener(uploadtest);
 //		dexloadButton.setOnClickListener(dexloadtest);
     }
@@ -169,6 +172,13 @@ public class main extends AppCompatActivity {
     public Button.OnClickListener apkdextest = new Button.OnClickListener() {
         public void onClick(View view) {
             Intent intent = new Intent(main.this, ApkDexTest.class);
+            startActivity(intent);
+        }
+    };
+
+    public Button.OnClickListener apkdextestonstart = new Button.OnClickListener() {
+        public void onClick(View view) {
+            Intent intent = new Intent(main.this, ApkDexTestonStart.class);
             startActivity(intent);
         }
     };
