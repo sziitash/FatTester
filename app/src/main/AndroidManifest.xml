@@ -73,6 +73,13 @@
                 <action android:name="test.bc.addcontant" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".broadcast.okhttpTest">
+            <intent-filter>
+                <action android:name="test.bc.okhttptest" />
+            </intent-filter>
+        </receiver>
+
         <!--获取当前内存service-->
         <service android:name=".service.Myservice">
             <intent-filter>
