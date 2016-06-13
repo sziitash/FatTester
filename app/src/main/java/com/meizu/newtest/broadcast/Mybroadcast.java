@@ -7,7 +7,6 @@ package com.meizu.newtest.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 
 public class Mybroadcast extends BroadcastReceiver {
@@ -20,13 +19,16 @@ public class Mybroadcast extends BroadcastReceiver {
 //		Log.d("LBH-broadcast","1");
         if (intent.getAction().equals(STATICACTION)){
             String pkgname = intent.getStringExtra("pkgName");
-            Log.d("benlee",pkgname);
+            String type = intent.getStringExtra("type");
+            String sleeptime = intent.getStringExtra("stime");
             //创建一个新的intent对象，并设置相关参数等启动service
             Intent serviceIntent = new Intent();
             //设置intent的action
             serviceIntent.setAction("test.cpuservice");
             //设置intent的参数
             serviceIntent.putExtra("packagename", pkgname);
+            serviceIntent.putExtra("type", type);
+            serviceIntent.putExtra("sleeptime", sleeptime);
             serviceIntent.setPackage(packagename);
             //通过context启动service
             context.startService(serviceIntent);
