@@ -10,13 +10,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.meizu.newtest.R;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class main extends AppCompatActivity {
 
@@ -93,12 +94,12 @@ public class main extends AppCompatActivity {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
                 @Override
-                public void onFailure(Request request, IOException e) {
+                public void onFailure(Call call, IOException e) {
                     Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
-                public void onResponse(Response response) throws IOException {
+                public void onResponse(Call call, Response response) throws IOException {
                     //请求成功，此处对请求结果进行处理
                     String result = response.body().string();
                     Log.i("benlee", result);
