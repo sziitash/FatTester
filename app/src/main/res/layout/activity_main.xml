@@ -67,24 +67,33 @@
         android:layout_marginTop="4sp"
         android:layout_marginEnd="4sp"/>
 
+    <!--<Button-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="动态加载测试"-->
+        <!--android:id="@+id/apkdextestButton"-->
+        <!--android:layout_below="@+id/sockectButton"-->
+        <!--android:layout_alignStart="@+id/sockectButton"-->
+        <!--android:layout_marginTop="4sp"-->
+        <!--android:layout_marginEnd="4sp"/>-->
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="动态加载测试"
-        android:id="@+id/apkdextestButton"
+        android:text="uiauomator2.0自定义执行"
+        android:id="@+id/apkdextestonstartButton"
         android:layout_below="@+id/sockectButton"
         android:layout_alignStart="@+id/sockectButton"
         android:layout_marginTop="4sp"
         android:layout_marginEnd="4sp"/>
 
-    <Button
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="动态加载测试onStart"
-        android:id="@+id/apkdextestonstartButton"
-        android:layout_below="@+id/apkdextestButton"
-        android:layout_alignStart="@+id/apkdextestButton"
-        android:layout_marginTop="4sp"
-        android:layout_marginEnd="4sp"/>
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="测试技术支持组3-李斌辉"
+        android:id="@+id/textView7"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

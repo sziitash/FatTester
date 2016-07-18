@@ -91,6 +91,15 @@
         android:textStyle="bold"
         android:textSize="14dp" />
 
+    <TextView
+        android:id="@+id/runtype"
+        android:layout_below="@+id/className"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="14dp" />
+
     <!--<TextView-->
         <!--android:text="测试用例"-->
         <!--android:id="@+id/testcases"-->
@@ -105,6 +114,6 @@
         android:id="@+id/lv"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/className" />
+        android:layout_below="@+id/runtype" />
 
 </RelativeLayout>

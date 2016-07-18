@@ -23,6 +23,10 @@ import com.meizu.newtest.Util.utils;
 public class RunUiaService extends Service {
     private MyThread myThread;
     private UtilMethodTools umt = new UtilMethodTools();
+    String testPkg;
+    String testClass;
+    String[] testCase;
+    String testrunner;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -34,6 +38,7 @@ public class RunUiaService extends Service {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onCreate() {
+        Log.i("benlee","onStartCommand");
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, RunUiaService.class), 0);
         Notification noti = new Notification.Builder(getApplicationContext())
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -54,16 +59,17 @@ public class RunUiaService extends Service {
 //        String pid = umt.getPid("nltemtbf");
 //        Log.i("benlee",pid);
 //        utils.execCommand("kill "+pid,false);
-        utils.execCommand("am force-stop com.meizu.nltemtbf",true);
+        utils.execCommand("am force-stop "+testPkg,true);
+        utils.execCommand("am force-stop "+testPkg.replace(".test",""),true);
     }
 
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("benlee","onStartCommand");
-        String testPkg = intent.getStringExtra("testpkg");
-        String testClass = intent.getStringExtra("testclass");
-        String[] testCase = intent.getStringArrayExtra("testcase");
-        myThread = new MyThread(testPkg,testClass,testCase);
+        testPkg = intent.getStringExtra("testpkg");
+        testClass = intent.getStringExtra("testclass");
+        testCase = intent.getStringArrayExtra("testcase");
+        testrunner = intent.getStringExtra("runtype");
+        myThread = new MyThread(testPkg,testClass,testCase,testrunner);
         myThread.start();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -72,25 +78,28 @@ public class RunUiaService extends Service {
         private String testpkg;
         private String testclass; //定义需要传值进来的参数
         private String[] testcase;
+        private String runtype;
 
         //        private boolean gorun;
-        public MyThread(String tpkg, String tclass, String[] tcase){//,boolean gorun){
+        public MyThread(String tpkg, String tclass, String[] tcase, String runtype){//,boolean gorun){
             this.testpkg = tpkg;
             this.testclass = tclass;
             this.testcase = tcase;
+            this.runtype =runtype;
         }
 
         @Override
         public void run() {
             if(testcase.equals("0")){
-                String commandstr = "am instrument -w -r -e debug false -e class "+testpkg+"."+testclass+" "+testpkg+".test/android.support.test.runner.AndroidJUnitRunner";
+//                String commandstr = "am instrument -w -r -e debug false -e class "+testpkg+"."+testclass+" "+testpkg+".test/android.support.test.runner.AndroidJUnitRunner";
+                String commandstr = "am instrument -w -e class "+testclass+" "+testpkg+"/"+runtype;
                 Log.i("benlee",commandstr);
                 utils.execCommand(commandstr,true);
             }
             else {
 //                String commandstr = "am instrument -w -r -e debug false -e class "+testpkg+"."+testclass+"#"+testcase+" "+testpkg+".test/android.support.test.runner.AndroidJUnitRunner";
                 for(String tc:testcase){
-                    String commandstr = "am instrument -w -e class "+testclass+"#"+tc+" "+testpkg+"/com.meizu.u2.runner.BaseRunner";
+                    String commandstr = "am instrument -w -e class "+testclass+"#"+tc+" "+testpkg+"/"+runtype;
 //                    String commandstr = "am instrument -w -e class "+testclass+"#"+tc+" "+testpkg+"/android.support.test.runner.AndroidJUnitRunner";
                     String res = utils.execCommand(commandstr,true).successMsg;
                     if(!res.contains("FAILURES!!!")){

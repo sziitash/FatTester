@@ -26,11 +26,9 @@ import dalvik.system.PathClassLoader;
  * Created by libinhui on 2016/5/12.
  */
 public class ApkDexTest extends AppCompatActivity{
-//    private static final String packagePath = "com.meizu.language.test";
-//    private static final String classPath = "com.meizu.language.SettingsTestCase";
     private static String apkName = null;
     private int checkNum;
-    private TextView tv_show, classnametv;
+    private TextView tv_show, classnametv, testtype;
     private Button bt_selectall, bt_cancel, bt_deselectall, bt_runtest, bt_stoptest;
     private ListView lv;
     private MyAdapter madapter;
@@ -49,13 +47,16 @@ public class ApkDexTest extends AppCompatActivity{
         bt_stoptest = (Button) findViewById(R.id.bt_stoptest);
         tv_show = (TextView) findViewById(R.id.tv);
         classnametv = (TextView) findViewById(R.id.className);
+        testtype = (TextView) findViewById(R.id.runtype);
 
         Bundle bundle = this.getIntent().getExtras();
         final String pkgname = bundle.getString("testpkg");
+        final String runType = bundle.getString("runtype");
         try {
             apkName = getPackageManager().getApplicationInfo(pkgname, 0).sourceDir;
             classname = getApkClass(apkName);
-            classnametv.setText("测试类名："+classname);
+            classnametv.setText("测试类名："+"\n"+classname);
+            testtype.setText("运行环境："+"\n"+runType);
             tcs = getTestCase(apkName,classname);
             madapter = new MyAdapter(tcs,this);
             lv.setAdapter(madapter);
@@ -152,6 +153,7 @@ public class ApkDexTest extends AppCompatActivity{
                 ArrayList<String> runtestcases =  hasSelecteds(tcs);
                 String[] testcases = runtestcases.toArray(new String[runtestcases.size()]);
                 i.putExtra("testcase", testcases);
+                i.putExtra("runtype", runType);
 //                ApkDexTest.this.stopService(i);
                 ApkDexTest.this.startService(i);
             }

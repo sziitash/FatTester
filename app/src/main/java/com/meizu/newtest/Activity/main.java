@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.meizu.jarutil.ShellUtils;
 import com.meizu.newtest.R;
 
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ShellUtils.checkRootPermission();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -45,7 +47,7 @@ public class main extends AppCompatActivity {
         sockectButton = (Button) findViewById(R.id.sockectButton);
 //		uploadButton = (Button)findViewById(R.id.uploadButton);
 //		dexloadButton = (Button)findViewById(R.id.dexloadButton);
-        apkdextestButton = (Button) findViewById(R.id.apkdextestButton);
+//        apkdextestButton = (Button) findViewById(R.id.apkdextestButton);
         apkdextestonstartButton = (Button) findViewById(R.id.apkdextestonstartButton);
 
         deviceinfo.setOnClickListener(deviceinfoC);
@@ -55,7 +57,7 @@ public class main extends AppCompatActivity {
         oomButton.setOnClickListener(ommtest);
 //		aidlButton.setOnClickListener(aidltest);
         sockectButton.setOnClickListener(sockecttest);
-        apkdextestButton.setOnClickListener(apkdextest);
+//        apkdextestButton.setOnClickListener(apkdextest);
         apkdextestonstartButton.setOnClickListener(apkdextestonstart);
 //		uploadButton.setOnClickListener(uploadtest);
 //		dexloadButton.setOnClickListener(dexloadtest);
