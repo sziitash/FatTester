@@ -25,6 +25,23 @@ public class NotificationTest extends BroadcastReceiver {
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 mNotificationManager.notify(x, noti.build());
             }
+
+//            String ver = GetInfoUtils.getAppVersion(context,"com.meizu.media.music");
+//            String res = ShellTools.getCurrentActivity();
+//            Toast.makeText(context,res,Toast.LENGTH_SHORT).show();
+
+//            runThread rt = new runThread();
+//            rt.start();
         }
     }
+
+
+//    public class runThread extends Thread{
+//        @Override
+//        public void run() {
+//            SystemClock.sleep(5000);
+//            ShellUtils.execCommand("am start -W -n com.android.settings/.Settings",true);
+//        }
+//    }
+
 }

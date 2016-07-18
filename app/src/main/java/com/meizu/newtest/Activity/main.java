@@ -179,7 +179,7 @@ public class main extends AppCompatActivity {
 
     public Button.OnClickListener apkdextestonstart = new Button.OnClickListener() {
         public void onClick(View view) {
-            Intent intent = new Intent(main.this, ApkDexTestonStart.class);
+            Intent intent = new Intent(main.this, selectTestApk.class);
             startActivity(intent);
         }
     };

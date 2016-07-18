@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,15 +26,15 @@ import dalvik.system.PathClassLoader;
  * Created by libinhui on 2016/5/12.
  */
 public class ApkDexTest extends AppCompatActivity{
-    private static final String packagePath = "com.meizu.nltemtbf.test";
-    private static final String classPath = "com.meizu.nltemtbf.ApplicationTest";
+//    private static final String packagePath = "com.meizu.language.test";
+//    private static final String classPath = "com.meizu.language.SettingsTestCase";
     private static String apkName = null;
     private int checkNum;
     private TextView tv_show, classnametv;
     private Button bt_selectall, bt_cancel, bt_deselectall, bt_runtest, bt_stoptest;
     private ListView lv;
     private MyAdapter madapter;
-    private String classname = null;
+    private static String classname = null;
     ArrayList<String> tcs;
 
     @Override
@@ -51,16 +50,21 @@ public class ApkDexTest extends AppCompatActivity{
         tv_show = (TextView) findViewById(R.id.tv);
         classnametv = (TextView) findViewById(R.id.className);
 
+        Bundle bundle = this.getIntent().getExtras();
+        final String pkgname = bundle.getString("testpkg");
         try {
-            apkName = getPackageManager().getApplicationInfo(packagePath, 0).sourceDir;
-            tcs = getTestCase();
-            Log.i("tcs", String.valueOf(tcs));
+            apkName = getPackageManager().getApplicationInfo(pkgname, 0).sourceDir;
+            classname = getApkClass(apkName);
+            classnametv.setText("测试类名："+classname);
+            tcs = getTestCase(apkName,classname);
             madapter = new MyAdapter(tcs,this);
             lv.setAdapter(madapter);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();}
+            e.printStackTrace();} catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // 全选按钮的回调接口
         bt_selectall.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +144,14 @@ public class ApkDexTest extends AppCompatActivity{
                 Intent i = new Intent();
                 i.setClass(ApkDexTest.this, RunUiaService.class);
                 ApkDexTest.this.stopService(i);
-                i.putExtra("testpkg", "com.meizu.nltemtbf");
-                i.putExtra("testclass","ApplicationTest");
-                i.putExtra("testcase", "test007Email");
+                String testpkg = pkgname;
+                i.putExtra("testpkg", testpkg);
+//                String cn = classname.split("\\.")[classname.split("\\.").length-1];
+//                Log.i("benlee",cn);
+                i.putExtra("testclass",classname);
+                ArrayList<String> runtestcases =  hasSelecteds(tcs);
+                String[] testcases = runtestcases.toArray(new String[runtestcases.size()]);
+                i.putExtra("testcase", testcases);
 //                ApkDexTest.this.stopService(i);
                 ApkDexTest.this.startService(i);
             }
@@ -156,14 +165,6 @@ public class ApkDexTest extends AppCompatActivity{
                 ApkDexTest.this.stopService(i);
             }
         });
-
-
-        try {
-            classname = getApkClass();
-            classnametv.setText("测试类名："+classname);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -171,38 +172,63 @@ public class ApkDexTest extends AppCompatActivity{
         super.onDestroy();
     }
 
-    public String getApkClass() throws IOException {
+    public String getApkClass(String pkgName) throws IOException {
         //获取测试的类名
-        DexFile dx = DexFile.loadDex(apkName, File.createTempFile("opt", "dex", getCacheDir()).getPath(), 0);
+        DexFile dx = DexFile.loadDex(pkgName, File.createTempFile("opt", "dex", getCacheDir()).getPath(), 0);
         for (Enumeration<String> classNames = dx.entries(); classNames.hasMoreElements(); ) {
             String cname = classNames.nextElement();
-            if (cname.contains("ApplicationTest")) {
-                if (!cname.contains("$")) {
-                    return cname;
-                }
+            if (cname.contains("TestCase") && !cname.contains("uiautomator") && !cname.contains("$")) {
+                return cname;
             }
         }
         return null;
     }
 
-    public ArrayList<String> getTestCase() throws ClassNotFoundException {
+//    public ArrayList<String> getTestCase() throws ClassNotFoundException {
+//        ArrayList<String> testcases = new ArrayList<String>();
+//        //获取方法
+//        PathClassLoader pathClassLoader = new dalvik.system.PathClassLoader(
+//                apkName,
+//                ClassLoader.getSystemClassLoader());
+//        Class<?> handler = Class.forName(classPath, true, pathClassLoader);
+//        Method[] mts = handler.getMethods();
+//        for (Method mt : mts) {
+//            String testcasename = mt.getName();
+//            Boolean x = testcasename.contains("test");
+//            if(x){
+//                testcases.add(testcasename);
+//            }
+//        }
+//        return testcases;
+//    }
+
+    public ArrayList<String> getTestCase(String u2apkname, String u2testclass) throws ClassNotFoundException {
         ArrayList<String> testcases = new ArrayList<String>();
         //获取方法
-//        String[] = null;
         PathClassLoader pathClassLoader = new dalvik.system.PathClassLoader(
-                apkName,
+                u2apkname.replace("\\.test",""),
                 ClassLoader.getSystemClassLoader());
-        Class<?> handler = Class.forName(classPath, true, pathClassLoader);
+        Class<?> handler = Class.forName(u2testclass, true, pathClassLoader);
         Method[] mts = handler.getMethods();
         for (Method mt : mts) {
             String testcasename = mt.getName();
-            Boolean x = testcasename.startsWith("test");
-            if(x){
+//            Boolean x = testcasename.contains("test");
+            if(testcasename.contains("test")||testcasename.contains("_")){
                 testcases.add(testcasename);
             }
         }
         return testcases;
     }
+
+//    public void getTestClass(String u2apkname){
+//        PathClassLoader pathClassLoader = new dalvik.system.PathClassLoader(
+//                u2apkname,
+//                ClassLoader.getSystemClassLoader());
+//        Class<?>[] xs = pathClassLoader.getClass().getClasses();
+//        for(Class<?>x:xs){
+//            Log.i("benlee",x.getName());
+//        }
+//    }
 
     // 刷新listview和TextView的显示
     private void dataChanged() {
@@ -211,4 +237,15 @@ public class ApkDexTest extends AppCompatActivity{
         // TextView显示最新的选中数目
         tv_show.setText("已选中" + checkNum + "项");
     };
+
+    private static ArrayList<String> hasSelecteds(ArrayList<String> allTestCases) {
+        ArrayList<String> selecteds = new ArrayList<String>();
+        for (int i = 0; i < allTestCases.size(); i++) {
+            boolean isselecting = MyAdapter.getIsSelected().get(i);
+            if (isselecting) {
+                selecteds.add(allTestCases.get(i));
+            }
+        }
+        return selecteds;
+    }
 }
