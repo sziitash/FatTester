@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
 
     <!--android:name=".Activity.LeakCanaryTest"-->
 
@@ -38,9 +40,10 @@
         <activity android:name=".Activity.wifiAdb" />
         <activity android:name=".Activity.OtherActivity" />
         <activity android:name=".Activity.webviewtest" />
-        <activity android:name=".Activity.ApkDexTest"/>
         <activity android:name=".Activity.ApkDexTestonStart" />
+        <activity android:name=".Activity.ApkDexTest" />
         <activity android:name=".Activity.selectTestApk" />
+        <activity android:name=".Activity.DumpApk" />
 
         <receiver android:name=".broadcast.Mybroadcast">
             <intent-filter>

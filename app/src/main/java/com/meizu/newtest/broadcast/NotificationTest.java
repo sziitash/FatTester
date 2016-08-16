@@ -32,8 +32,12 @@ public class NotificationTest extends BroadcastReceiver {
 
 //            runThread rt = new runThread();
 //            rt.start();
+//            Toast.makeText(context,"hello",Toast.LENGTH_LONG).show();
+//            updateSystemLanguage("zh","CN");
         }
     }
+
+
 
 
 //    public class runThread extends Thread{
@@ -43,5 +47,4 @@ public class NotificationTest extends BroadcastReceiver {
 //            ShellUtils.execCommand("am start -W -n com.android.settings/.Settings",true);
 //        }
 //    }
-
 }

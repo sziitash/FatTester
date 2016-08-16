@@ -122,7 +122,6 @@ public class MainActivity extends ListActivity {
 		return cn.getClassName();
 	}
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
@@ -154,5 +153,13 @@ public class MainActivity extends ListActivity {
 				new String[]{"title","text"},new int[]{R.id.title,R.id.text});
 		setListAdapter(adapter);
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onStart() {
+		//配合systrace展示方法的运行时间和次数
+		String result = osReleaseText();
+		Log.i("benlee",result);
+		super.onStart();
 	}
 }

@@ -147,14 +147,11 @@ public class ApkDexTest extends AppCompatActivity{
                 ApkDexTest.this.stopService(i);
                 String testpkg = pkgname;
                 i.putExtra("testpkg", testpkg);
-//                String cn = classname.split("\\.")[classname.split("\\.").length-1];
-//                Log.i("benlee",cn);
                 i.putExtra("testclass",classname);
                 ArrayList<String> runtestcases =  hasSelecteds(tcs);
                 String[] testcases = runtestcases.toArray(new String[runtestcases.size()]);
                 i.putExtra("testcase", testcases);
                 i.putExtra("runtype", runType);
-//                ApkDexTest.this.stopService(i);
                 ApkDexTest.this.startService(i);
             }
         });
@@ -168,6 +165,8 @@ public class ApkDexTest extends AppCompatActivity{
             }
         });
     }
+
+
 
     @Override
     protected void onDestroy() {
