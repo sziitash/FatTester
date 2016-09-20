@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -90,6 +91,8 @@ public class RunUiaService extends Service {
 
         @Override
         public void run() {
+            toastThreadNew tr = new toastThreadNew("测试准备开始，正在初始化");
+            tr.start();
             if(testcase.equals("0")){
 //                String commandstr = "am instrument -w -r -e debug false -e class "+testpkg+"."+testclass+" "+testpkg+".test/android.support.test.runner.AndroidJUnitRunner";
                 String commandstr = "am instrument -w -e class "+testclass+" "+testpkg+"/"+runtype;
@@ -106,15 +109,20 @@ public class RunUiaService extends Service {
                         Log.i("testResult","测试用例"+tc+"--->true");
                         toastThread tt = new toastThread(tc,true);
                         tt.start();
+                        SystemClock.sleep(3000);
+                        tt.interrupt();
                     }
                     else {
                         Log.i("testResult","测试用例"+tc+"--->false");
                         toastThread tt = new toastThread(tc,false);
                         tt.start();
+                        SystemClock.sleep(3000);
+                        tt.interrupt();
                     }
                 }
 
             }
+            tr.interrupt();
         }
     }
 
@@ -135,6 +143,19 @@ public class RunUiaService extends Service {
                 Toast.makeText(getApplicationContext(), "测试用例"+tcname+": false", Toast.LENGTH_LONG).show();
             }
 
+            Looper.loop();
+        }
+    }
+
+    class toastThreadNew extends Thread{
+        private String tcname;
+        public toastThreadNew(String tcname) {
+            this.tcname = tcname;
+        }
+        @Override
+        public void run() {
+            Looper.prepare();
+            Toast.makeText(getApplicationContext(), tcname, Toast.LENGTH_LONG).show();
             Looper.loop();
         }
     }

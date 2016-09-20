@@ -9,8 +9,10 @@ import android.widget.Button;
 
 import com.meizu.newtest.R;
 
+
+//参考资料：http://vjson.com/wordpress/android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98.html
+
 public class OtherActivity extends Activity {
-    public static final String TAG = OtherActivity.class.getSimpleName();
 
     private Object[] mObjs = new Object[1000000];//
     private Button mBtn;
@@ -30,7 +32,7 @@ public class OtherActivity extends Activity {
             }
         });
 
-        ActivityManager.instance().registActivity(this);
+        TestActivityManager.instance().registActivity(this);
     }
 
     @Override
@@ -39,4 +41,3 @@ public class OtherActivity extends Activity {
         super.onDestroy();
     }
 }
-

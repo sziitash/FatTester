@@ -15,7 +15,7 @@ am broadcast -a test.noti;<br />
 `停止:` am broadcast -a test.StopRunuia<br/>
 <br />
 ####广播启动service统计cpu使用率，存储在/sdcard/目录下的csv文件：<br />
-`启动:` am broadcast -a test.cpustart --es pkgName com.meizu.flyme.launcher<br />
+`启动:` am broadcast -a test.cpustart --es pkgName com.meizu.flyme.launcher --es type cpu --stime 1000<br />
 `停止:` am broadcast -a test.cpustop<br />
 
 

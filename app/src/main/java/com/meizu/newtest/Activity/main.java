@@ -69,7 +69,7 @@ public class main extends AppCompatActivity {
         public void onClick(View view) {
             Intent intent = new Intent(main.this, OtherActivity.class);
             startActivity(intent);
-            ActivityManager.instance().registActivity(main.this);
+            TestActivityManager.instance().registActivity(main.this);
         }
     };
 
@@ -127,6 +127,6 @@ public class main extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i("hello", "main_onDestroy");
-        ActivityManager.instance().registActivity(main.this);
+        TestActivityManager.instance().registActivity(main.this);
     }
 }

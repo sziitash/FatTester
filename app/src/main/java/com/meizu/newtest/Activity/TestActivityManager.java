@@ -7,16 +7,16 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityManager {
+public class TestActivityManager {
     private List<Activity> mActivities = new ArrayList<>();
-    private static ActivityManager sInstance;
+    private static TestActivityManager sInstance;
 
-    private ActivityManager() {
+    private TestActivityManager() {
     };
 
-    public static ActivityManager instance() {
+    public static TestActivityManager instance() {
         if (sInstance == null) {
-            sInstance = new ActivityManager();
+            sInstance = new TestActivityManager();
         }
 
         return sInstance;
